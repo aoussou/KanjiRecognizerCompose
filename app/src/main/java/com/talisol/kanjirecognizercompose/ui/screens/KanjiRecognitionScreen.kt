@@ -52,16 +52,16 @@ fun KanjiRecognitionScreen(
 ) {
 
     val context = LocalContext.current
-    val view = LocalView.current
+
     var composableBounds by remember { mutableStateOf<Rect?>(null) }
     var recognizedKanji by remember { mutableStateOf("") }
 
     val drawModifier = Modifier
-        .fillMaxWidth()
         .aspectRatio(1f)
+        .fillMaxWidth()
         .padding(8.dp)
-        .clipToBounds()
         .background(Color.White)
+        .clipToBounds()
         .onGloballyPositioned { layoutCoordinates: LayoutCoordinates ->
             composableBounds = layoutCoordinates.boundsInRoot()
         }
@@ -81,7 +81,7 @@ fun KanjiRecognitionScreen(
                 pointerInputChange.consumeDownChange()
             }
         )
-
+//        .border(BorderStroke(3.dp, Color.Blue))
 
     Column(
         modifier = Modifier
@@ -89,9 +89,12 @@ fun KanjiRecognitionScreen(
             .background(backgroundColor)
         ,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.SpaceAround,
 
     ) {
+
+        val view = LocalView.current
+
 
         Box(
             modifier = Modifier
@@ -112,7 +115,6 @@ fun KanjiRecognitionScreen(
 
 
         Canvas(modifier = drawModifier) {
-
             when (state.motionEvent) {
                 MotionEvent.Down -> {
                     onAction(DrawingAction.MovePath)
@@ -169,10 +171,11 @@ fun KanjiRecognitionScreen(
         DrawingPropertiesMenu(
 
             modifier = Modifier
-                .shadow(1.dp, RoundedCornerShape(8.dp))
                 .fillMaxWidth()
-                .aspectRatio(.9F)
-                .background(Color.White),
+                .fillMaxHeight(.3F)
+                .background(Color.White)
+                .border(BorderStroke(3.dp, Color.Blue))
+            ,
 
             onUndo = {
                 if (state.allStrokes.isNotEmpty()) {
@@ -195,10 +198,11 @@ fun KanjiRecognitionScreen(
             },
 
             onSubmit = {
+
                 val bmp = Bitmap
                     .createBitmap(
-                        composableBounds!!.width.roundToInt(),
-                        composableBounds!!.height.roundToInt(),
+                        (composableBounds!!.width).roundToInt(),
+                        (composableBounds!!.height).roundToInt(),
                         Bitmap.Config.ARGB_8888
                     )
                     .applyCanvas {
@@ -206,12 +210,14 @@ fun KanjiRecognitionScreen(
                         view.draw(this)
                     }
 
-                recognizedKanji = kanjiRecognizer(bmp)
-
                 bmp.let {
                     File(context.filesDir, "screenshot.png")
                         .writeBitmap(bmp, Bitmap.CompressFormat.PNG, 85)
                 }
+
+                recognizedKanji = kanjiRecognizer(bmp)
+
+
 
 
             }
