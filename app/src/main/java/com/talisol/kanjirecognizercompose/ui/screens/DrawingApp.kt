@@ -1,12 +1,17 @@
 package com.talisol.kanjirecognizercompose.screens
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.SnackbarDefaults.backgroundColor
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
@@ -24,10 +29,12 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.graphics.applyCanvas
 import com.talisol.kanjirecognizercompose.dragMotionEvent
 import com.talisol.kanjirecognizercompose.drawingUtils.*
 import com.talisol.kanjirecognizercompose.ui.screens.DrawingPropertiesMenu
+import org.intellij.lang.annotations.JdkConstants
 import java.io.File
 import kotlin.math.roundToInt
 
@@ -36,6 +43,7 @@ fun DrawingApp(
     currentStroke: Path,
     state: DrawingState,
     onAction: (DrawingAction) -> Unit,
+    recognizeKanji: (Bitmap) -> String,
     pathProperties: PathProperties = PathProperties(),
     strokeType: Stroke = Stroke(
         width = pathProperties.strokeWidth,
@@ -47,6 +55,7 @@ fun DrawingApp(
     val context = LocalContext.current
     val view = LocalView.current
     var composableBounds by remember { mutableStateOf<Rect?>(null) }
+    var recognizedKanji by remember { mutableStateOf("")    }
 
     val drawModifier = Modifier
         .padding(8.dp)
@@ -79,9 +88,29 @@ fun DrawingApp(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor)
+            .background(backgroundColor),
+        horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
 
+        Box(modifier = Modifier
+            .fillMaxSize(0.35F)
+            .aspectRatio(1f)
+            .border(BorderStroke(2.dp, Color.Black))
+            .background(Color.White)
+
+        ){
+            Text(
+                recognizedKanji,
+                fontSize = 72.sp,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Center)
+                ,
+
+
+                )
+        }
 
 
 
@@ -179,10 +208,12 @@ fun DrawingApp(
                         view.draw(this)
                     }
 
-                bmp.let {
-                    File(context.filesDir, "screenshot.png")
-                        .writeBitmap(bmp, Bitmap.CompressFormat.PNG, 85)
-                }
+                recognizedKanji = recognizeKanji(bmp)
+
+//                bmp.let {
+//                    File(context.filesDir, "screenshot.png")
+//                        .writeBitmap(bmp, Bitmap.CompressFormat.PNG, 85)
+//                }
 
 
             }
