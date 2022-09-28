@@ -37,7 +37,7 @@ import com.talisol.kanjirecognizercompose.ui.screens.DrawingPropertiesMenu
 import kotlin.math.roundToInt
 
 @Composable
-fun DrawingApp(
+fun KanjiRecognitionScreen(
     currentStroke: Path,
     state: DrawingState,
     onAction: (DrawingAction) -> Unit,
@@ -56,9 +56,8 @@ fun DrawingApp(
     var recognizedKanji by remember { mutableStateOf("")    }
 
     val drawModifier = Modifier
-        .padding(8.dp)
-        .shadow(1.dp)
-        .fillMaxWidth()
+        .border(BorderStroke(1.dp, Color.Blue))
+        .fillMaxSize(.9F)
         .aspectRatio(1f)
         .clipToBounds()
         .background(Color.White)
@@ -87,14 +86,15 @@ fun DrawingApp(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
 
     ) {
 
         Box(modifier = Modifier
-            .fillMaxSize(0.35F)
+            .fillMaxSize(.25F)
             .aspectRatio(1f)
-            .border(BorderStroke(2.dp, Color.Black))
+            .border(BorderStroke(1.dp, Color.Blue))
             .background(Color.White),
             contentAlignment = Center
 
@@ -166,11 +166,10 @@ fun DrawingApp(
         DrawingPropertiesMenu(
 
             modifier = Modifier
-                .padding(bottom = 8.dp, start = 8.dp, end = 8.dp)
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .fillMaxWidth()
-                .background(Color.White)
-                .padding(4.dp),
+                .fillMaxHeight(.5F)
+                .background(Color.White),
 
             onUndo = {
                 if (state.allStrokes.isNotEmpty()) {
