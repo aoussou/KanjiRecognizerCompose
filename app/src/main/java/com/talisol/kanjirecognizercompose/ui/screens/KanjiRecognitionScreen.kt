@@ -34,6 +34,7 @@ import androidx.core.graphics.applyCanvas
 import com.talisol.kanjirecognizercompose.dragMotionEvent
 import com.talisol.kanjirecognizercompose.drawingUtils.*
 import com.talisol.kanjirecognizercompose.ui.screens.DrawingPropertiesMenu
+import java.io.File
 import kotlin.math.roundToInt
 
 @Composable
@@ -207,10 +208,10 @@ fun KanjiRecognitionScreen(
 
                 recognizedKanji = kanjiRecognizer(bmp)
 
-//                bmp.let {
-//                    File(context.filesDir, "screenshot.png")
-//                        .writeBitmap(bmp, Bitmap.CompressFormat.PNG, 85)
-//                }
+                bmp.let {
+                    File(context.filesDir, "screenshot.png")
+                        .writeBitmap(bmp, Bitmap.CompressFormat.PNG, 85)
+                }
 
 
             }
