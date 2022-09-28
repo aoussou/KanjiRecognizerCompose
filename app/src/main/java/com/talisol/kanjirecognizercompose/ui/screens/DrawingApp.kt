@@ -11,9 +11,7 @@ import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
@@ -36,8 +34,6 @@ import androidx.core.graphics.applyCanvas
 import com.talisol.kanjirecognizercompose.dragMotionEvent
 import com.talisol.kanjirecognizercompose.drawingUtils.*
 import com.talisol.kanjirecognizercompose.ui.screens.DrawingPropertiesMenu
-import org.intellij.lang.annotations.JdkConstants
-import java.io.File
 import kotlin.math.roundToInt
 
 @Composable
@@ -45,7 +41,7 @@ fun DrawingApp(
     currentStroke: Path,
     state: DrawingState,
     onAction: (DrawingAction) -> Unit,
-    recognizeKanji: (Bitmap) -> String,
+    kanjiRecognizer: (Bitmap) -> String,
     pathProperties: PathProperties = PathProperties(),
     strokeType: Stroke = Stroke(
         width = pathProperties.strokeWidth,
@@ -106,6 +102,7 @@ fun DrawingApp(
             Text(
                 recognizedKanji,
                 fontSize = 72.sp,
+                color = Color.Black
                 )
         }
 
@@ -178,6 +175,7 @@ fun DrawingApp(
             onUndo = {
                 if (state.allStrokes.isNotEmpty()) {
                     onAction(DrawingAction.UndoLastStroke)
+                    recognizedKanji = ""
                 }
             },
 
@@ -190,6 +188,7 @@ fun DrawingApp(
             onEraseAll = {
                 if (state.allStrokes.isNotEmpty()) {
                     onAction(DrawingAction.ClearAllPaths)
+                    recognizedKanji = ""
                 }
             },
 
@@ -205,7 +204,7 @@ fun DrawingApp(
                         view.draw(this)
                     }
 
-                recognizedKanji = recognizeKanji(bmp)
+                recognizedKanji = kanjiRecognizer(bmp)
 
 //                bmp.let {
 //                    File(context.filesDir, "screenshot.png")
