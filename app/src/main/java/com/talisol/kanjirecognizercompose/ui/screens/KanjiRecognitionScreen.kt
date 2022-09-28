@@ -53,12 +53,12 @@ fun KanjiRecognitionScreen(
     val context = LocalContext.current
     val view = LocalView.current
     var composableBounds by remember { mutableStateOf<Rect?>(null) }
-    var recognizedKanji by remember { mutableStateOf("")    }
+    var recognizedKanji by remember { mutableStateOf("") }
 
     val drawModifier = Modifier
-        .border(BorderStroke(1.dp, Color.Blue))
-        .fillMaxSize(.9F)
+        .fillMaxWidth()
         .aspectRatio(1f)
+        .padding(8.dp)
         .clipToBounds()
         .background(Color.White)
         .onGloballyPositioned { layoutCoordinates: LayoutCoordinates ->
@@ -85,25 +85,27 @@ fun KanjiRecognitionScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor),
+            .background(backgroundColor)
+        ,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween,
 
     ) {
 
-        Box(modifier = Modifier
-            .fillMaxSize(.25F)
-            .aspectRatio(1f)
-            .border(BorderStroke(1.dp, Color.Blue))
-            .background(Color.White),
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(.25F)
+                .aspectRatio(1f)
+                .border(BorderStroke(1.dp, Color.Blue))
+                .background(Color.White),
             contentAlignment = Center
 
-        ){
+        ) {
             Text(
                 recognizedKanji,
                 fontSize = 72.sp,
                 color = Color.Black
-                )
+            )
         }
 
 
@@ -168,7 +170,7 @@ fun KanjiRecognitionScreen(
             modifier = Modifier
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .fillMaxWidth()
-                .fillMaxHeight(.5F)
+                .aspectRatio(.9F)
                 .background(Color.White),
 
             onUndo = {
