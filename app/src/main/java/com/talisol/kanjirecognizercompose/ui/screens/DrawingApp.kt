@@ -11,7 +11,9 @@ import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
@@ -97,18 +99,13 @@ fun DrawingApp(
             .fillMaxSize(0.35F)
             .aspectRatio(1f)
             .border(BorderStroke(2.dp, Color.Black))
-            .background(Color.White)
+            .background(Color.White),
+            contentAlignment = Center
 
         ){
             Text(
                 recognizedKanji,
                 fontSize = 72.sp,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Center)
-                ,
-
-
                 )
         }
 
