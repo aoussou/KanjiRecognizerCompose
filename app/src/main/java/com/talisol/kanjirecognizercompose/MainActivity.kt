@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.talisol.kanjirecognizercompose.screens.KanjiRecognitionScreen
+import com.talisol.kanjirecognizercompose.ui.screens.KanjiRecognitionScreen
 import com.talisol.kanjirecognizercompose.ui.theme.KanjiRecognizerComposeTheme
 import com.talisol.kanjirecognizercompose.viewModels.DrawingVM
 import com.talisol.kanjirecognizercompose.viewModels.KanjiRecognitionVM

@@ -1,4 +1,4 @@
-package com.talisol.kanjirecognizercompose.screens
+package com.talisol.kanjirecognizercompose.ui.screens
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.BorderStroke
@@ -6,7 +6,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
@@ -31,9 +29,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.applyCanvas
-import com.talisol.kanjirecognizercompose.dragMotionEvent
+import com.talisol.kanjirecognizercompose.drawingUtils.dragMotionEvent
 import com.talisol.kanjirecognizercompose.drawingUtils.*
-import com.talisol.kanjirecognizercompose.ui.screens.DrawingPropertiesMenu
 import java.io.File
 import kotlin.math.roundToInt
 

@@ -1,4 +1,4 @@
-package com.talisol.kanjirecognizercompose
+package com.talisol.kanjirecognizercompose.drawingUtils
 
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitTouchSlopOrCancellation
